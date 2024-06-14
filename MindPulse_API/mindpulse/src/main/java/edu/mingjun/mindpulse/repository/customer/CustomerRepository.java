@@ -1,7 +1,7 @@
-package main.java.edu.mingjun.mindpulse.repository;
+package edu.mingjun.mindpulse.repository;
 
-import main.java.edu.mingjun.mindpulse.model.Customer;
-import main.java.edu.mingjun.mindpulse.repository.BaseRepository;
+import edu.mingjun.mindpulse.model.Customer;
+import edu.mingjun.mindpulse.repository.BaseRepository;
 
 public interface CustomerRepository extends BaseRepository<Customer, String> {
     

@@ -1,5 +1,18 @@
-package main.java.edu.mingjun.mindpulse.service;
+package edu.mingjun.mindpulse.service;
 
-public interface BaseService {
-    
+/* 
+    Acronym:
+        T = Entity Type, 
+        ID = Entity Id Type
+*/
+
+public interface BaseService<T, ID> {
+
+    void save(T entity);
+
+    T get(ID id);
+
+    void update(T entity);
+
+    void delete(ID id);
 }

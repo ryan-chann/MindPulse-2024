@@ -1,9 +1,9 @@
-package main.java.edu.mingjun.mindpulse.repository;
+package edu.mingjun.mindpulse.repository;
 
 /* 
-Acronym:
-    T = Entity Type, 
-    ID = Entity Id Type
+    Acronym:
+        T = Entity Type, 
+        ID = Entity Id Type
 */ 
 
 public interface BaseRepository<T, ID> {
@@ -15,5 +15,5 @@ public interface BaseRepository<T, ID> {
     void update(T entity);
 
     void delete(ID id);
-    
+
 }

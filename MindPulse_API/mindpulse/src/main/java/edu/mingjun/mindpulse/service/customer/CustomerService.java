@@ -1,5 +1,8 @@
-// package main.java.edu.mingjun.mindpulse.service;
+package edu.mingjun.mindpulse.service;
 
-// public interface CustomerService {
+import edu.mingjun.mindpulse.model.Customer;
+import edu.mingjun.mindpulse.service.BaseService;
+
+public interface CustomerService extends BaseService<Customer, String>{
     
-// }
+}
