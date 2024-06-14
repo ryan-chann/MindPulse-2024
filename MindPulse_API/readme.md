@@ -13,15 +13,10 @@ This project uses the following dependencies:
 3. **AWS SDK for Java**, v2.26.0
 
    * **DynamoDB**
-     * *Exclusions*
-       - `software.amazon.awssdk:netty-nio-client`
-       - `software.amazon.awssdk:apache-client`
-
-   - **DynamoDB Enhanced Client**
-   - **SSO**
-   - **SSO OIDC**
-   - **Apache Client**
-     - *Exclusions*:- `commons-logging:commons-logging`
+   * **DynamoDB Enhanced Client**
+   * **SSO**
+   * **SSO OIDC**
+   * **Apache Client**
 4. **Project Lombok**, v1.18.32
 
 ### Installing
