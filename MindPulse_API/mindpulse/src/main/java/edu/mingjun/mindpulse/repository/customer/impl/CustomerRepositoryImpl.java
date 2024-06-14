@@ -19,19 +19,39 @@ import software.amazon.awssdk.core.internal.waiters.ResponseOrException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 @Slf4j
 @Repository
-public class CustomerRepository {
+public class CustomerRepositoryImpl implements CustomerRepository{
     private final TableSchema<Customer> CUSTOMER_TABLE_SCHEMA = TableSchema.fromBean(Customer.class);
     private final DynamoDbTable<Customer> CUSTOMER_TABLE;
 
     @Autowired
-    public CustomerRepository(DynamoDbClient dynamoDbClient, DynamoDbEnhancedClient dynamoDbEnhancedClient) {
+    public CustomerRepositoryImpl(DynamoDbClient dynamoDbClient, DynamoDbEnhancedClient dynamoDbEnhancedClient) {
         this.CUSTOMER_TABLE = dynamoDbEnhancedClient.table(Customer.class.getSimpleName().toString(), this.CUSTOMER_TABLE_SCHEMA);
         this.checkTableExists(dynamoDbClient);
     }
 
+    @NonNull
+    public void save(Customer customer) {
+        CUSTOMER_TABLE.putItem(customer);
+    }
+
+    @NonNull
+    public Customer get(String uuId) {
+        return CUSTOMER_TABLE.getItem(request -> request.key(keyBuilder -> keyBuilder.partitionValue(uuId)));
+    }
+
+    @NonNull
+    public void update(Customer customer) {
+        CUSTOMER_TABLE.updateItem(customer);
+    }
+
+    @NonNull
+    public void delete(String uuId) {
+        CUSTOMER_TABLE.deleteItem(request -> request.key(keyBuilder -> keyBuilder.partitionValue(uuId)));
+    }
+    
+    // Helper methods
     private void createTable (DynamoDbClient dynamoDbClient) {
         this.CUSTOMER_TABLE.createTable(builder -> builder
             .provisionedThroughput(b -> b
@@ -56,15 +76,5 @@ public class CustomerRepository {
         } catch (ResourceNotFoundException e) {
             createTable(dynamoDbClient);
         }
-    }
-
-    @NonNull
-    public void save(Customer customer) {
-        CUSTOMER_TABLE.putItem(customer);
-    }
-
-    @NonNull
-    public void update(Customer customer) {
-        CUSTOMER_TABLE.updateItem(customer);
     }
 }

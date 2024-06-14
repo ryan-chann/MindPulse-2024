@@ -1,8 +1,19 @@
 # MindPulse Web API
 
-## Description
-
 ## Getting Started
+
+### Pre-requisites
+
+Ensure your systems meets the following requirements:
+
+1. **Java JDK**, v22
+   * JAVA_HOME environment variables configured
+2. **Maven**, v3.13.0
+   * MAVEN_HOME environment variabled configured
+3. **AWS CLI**, v2.16.6
+4. **AWS Credentials**
+   * Access Key ID configured
+   * Secret Key ID configured
 
 ### Dependencies
 
@@ -18,12 +29,3 @@ This project uses the following dependencies:
    * **SSO OIDC**
    * **Apache Client**
 4. **Project Lombok**, v1.18.32
-
-### Installing
-
-To set up your development environment:
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/mindpulse-web-api.git
-   ```
