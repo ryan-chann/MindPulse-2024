@@ -17,10 +17,10 @@ This project uses the following dependencies:
        - `software.amazon.awssdk:netty-nio-client`
        - `software.amazon.awssdk:apache-client`
 
-   - **DynamoDB Enhanced Client
-   - SSO
-   - SSO OIDC
-   - Apache Client
+   - **DynamoDB Enhanced Client**
+   - **SSO**
+   - **SSO OIDC**
+   - **Apache Client**
      - *Exclusions*:- `commons-logging:commons-logging`
 4. **Project Lombok**, v1.18.32
 
