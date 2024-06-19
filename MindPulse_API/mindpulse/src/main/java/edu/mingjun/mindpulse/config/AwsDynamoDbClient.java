@@ -7,16 +7,16 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class DynamoDbClientManager {
-    private static DynamoDbClientManager dynamoDbClientManagerSingleton = null;
+public class AwsDynamoDbClient {
+    private static AwsDynamoDbClient awsDynamoDbClientSingleton = null;
 
     private DynamoDbClient dynamoDbClient;
     private DynamoDbEnhancedClient dynamoDbEnhancedClient;
 
-    public static DynamoDbClientManager getInstance() {
-        if (dynamoDbClientManagerSingleton == null) {
-            dynamoDbClientManagerSingleton = new DynamoDbClientManager();
+    public static AwsDynamoDbClient getInstance() {
+        if (awsDynamoDbClientSingleton == null) {
+            awsDynamoDbClientSingleton = new AwsDynamoDbClient();
         }
-        return dynamoDbClientManagerSingleton;
+        return awsDynamoDbClientSingleton;
     }
 }

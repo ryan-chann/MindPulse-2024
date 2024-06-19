@@ -9,18 +9,18 @@ import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class DynamoDbCredentials {
-    private static DynamoDbCredentials dynamoDbCredentialsSingleton = null;
+public class AwsSsoCredentials {
+    private static AwsSsoCredentials awsSsoCredentialsSingleton = null;
 
     private String accessKeyId;
     private String secretAccessKey;
     private String sessionToken;
 
-    public static DynamoDbCredentials getInstance() {
-        if (dynamoDbCredentialsSingleton == null) {
-            dynamoDbCredentialsSingleton = new DynamoDbCredentials();
+    public static AwsSsoCredentials getInstance() {
+        if (awsSsoCredentialsSingleton == null) {
+            awsSsoCredentialsSingleton = new AwsSsoCredentials();
         }
-        return dynamoDbCredentialsSingleton;
+        return awsSsoCredentialsSingleton;
     }
 
     public AwsSessionCredentials getAwsCredentials() {

@@ -35,6 +35,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -50,6 +56,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 
 		<dependency>
 			<groupId>software.amazon.awssdk</groupId>
@@ -136,6 +148,18 @@
 			<version>5.10.2</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>5.0.0-alpha.14</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -150,9 +174,10 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven.compiler.plugin.version}</version>
 				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
+					<source>22</source>
+					<target>22</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
 			</plugin>
 
 			<plugin>
