@@ -1,6 +1,6 @@
 package edu.mingjun.mindpulse.config;
 
-import edu.mingjun.mindpulse.config.AwsDynamoDbClient;
+import edu.mingjun.mindpulse.global.AwsDynamoDbRegion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

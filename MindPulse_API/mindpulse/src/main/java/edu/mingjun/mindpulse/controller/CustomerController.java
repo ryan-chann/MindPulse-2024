@@ -1,6 +1,6 @@
 package edu.mingjun.mindpulse.controller;
 
-import edu.mingjun.mindpulse.model.ApiResponse;
+import edu.mingjun.mindpulse.model.api.ApiResponse;
 import edu.mingjun.mindpulse.model.Customer;
 import edu.mingjun.mindpulse.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;

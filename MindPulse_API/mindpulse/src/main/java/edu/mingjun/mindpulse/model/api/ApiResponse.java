@@ -1,4 +1,4 @@
-package edu.mingjun.mindpulse.model;
+package edu.mingjun.mindpulse.model.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
