@@ -1,8 +1,9 @@
 import {Button, Image, Tag} from "antd";
-import React from "react";
+import React, {useEffect} from "react";
 import {SearchOutlined} from "@ant-design/icons";
 
-const TherapistCard = ({isAtFullCapacity, therapistName, therapistType}) => {
+const TherapistCard = ({available, therapistName, therapistType, therapistImage}) => {
+
     const therapistCardStyle = {
         display: 'flex',
         flexDirection: 'column',
@@ -59,12 +60,25 @@ const TherapistCard = ({isAtFullCapacity, therapistName, therapistType}) => {
         borderRadius: '0px'
     }
 
+    const getTherapistType = (type) => {
+        switch (type) {
+            case 1:
+                return "Clinical Psychologist";
+            case 2:
+                return "Counsellor";
+            case 3:
+                return "Trainee";
+            default:
+                return "Unknown";
+        }
+    }
+
     return(
         <div style={therapistCardStyle}>
-            {isAtFullCapacity ? (<Tag style={fullCapacityTagStyle}>At full capacity</Tag>) : (<Tag style={openToNewClientTagStyle}>Open to new client</Tag>)}
-            <Image width={200} height={200} preview={false} />
+            {!available ? (<Tag style={fullCapacityTagStyle}>At full capacity</Tag>) : (<Tag style={openToNewClientTagStyle}>Open to new client</Tag>)}
+            <Image width={200} height={200} preview={false} src={therapistImage}/>
             <span style={therapistNameSpanStyle}>{therapistName}</span>
-            <span style={therapistTypeSpanStyle}>{therapistType}</span>
+            <span style={therapistTypeSpanStyle}>{getTherapistType(therapistType)}</span>
             <Button type="primary" icon={<SearchOutlined />} style={viewProfileButtonStyle}>View Profile </Button>
         </div>
     )

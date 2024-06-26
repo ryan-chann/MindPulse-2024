@@ -1,6 +1,6 @@
 package edu.mingjun.mindpulse.config;
 
-import edu.mingjun.mindpulse.global.AwsDynamoDbRegion;
+import edu.mingjun.mindpulse.global.AwsDynamoDb;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,7 +36,7 @@ public class AwsSsoConfig {
 
         StsClient stsClient = StsClient.builder()
                 .credentialsProvider(StaticCredentialsProvider.create(awsSsoCredentials.getAwsCredentials()))
-                .region(Region.of(AwsDynamoDbRegion.AWS_SSO_REGION))
+                .region(Region.of(AwsDynamoDb.AWS_SSO_REGION))
                 .build();
 
         GetCallerIdentityRequest getCallerIdentityRequest = GetCallerIdentityRequest.builder().build();
@@ -45,7 +45,7 @@ public class AwsSsoConfig {
 
             awsDynamoDbClient.setDynamoDbClient(DynamoDbClient.builder()
                     .credentialsProvider(StaticCredentialsProvider.create(awsSsoCredentials.getAwsCredentials()))
-                    .region(Region.of(AwsDynamoDbRegion.AWS_DYNAMODB_REGION))
+                    .region(Region.of(AwsDynamoDb.AWS_DYNAMODB_REGION))
                     .build()
             );
 
@@ -54,19 +54,21 @@ public class AwsSsoConfig {
                     .build()
             );
 
+            AwsDynamoDbTable awsDynamoDbTable = AwsDynamoDbTable.getInstance();
+
             if (awsDynamoDbClient.getDynamoDbClient() != null){
-                log.info(STR."DynamoDB client created");
+                log.info("DynamoDB client created");
                 if (awsDynamoDbClient.getDynamoDbEnhancedClient() != null) {
-                    log.info(STR."DynamoDB enhanced client created");
+                    log.info("DynamoDB enhanced client created");
                 }
             }
 
             System.out.println("--------------------------------------");
             System.out.println("CONNECTION SUCCESSFUL");
             System.out.println("--------------------------------------");
-            System.out.println("Account: " + response.account());
-            System.out.println("User ID: " + response.userId());
-            System.out.println("Amazon Resource Name: " + response.arn());
+            System.out.println(STR."Account: \{response.account()}");
+            System.out.println(STR."User ID: \{response.userId()}");
+            System.out.println(STR."Amazon Resource Name: \{response.arn()}");
         } catch (StsException _) {
             log.error("Invalid AWS credentials, Exiting program...");
             System.exit(1);

@@ -1,0 +1,1 @@
+INSERT INTO "Therapist" value {'Artist' : 'Acme Band','SongTitle' : 'PartiQL Rocks'}
