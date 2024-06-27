@@ -1,6 +1,6 @@
 import {Divider, Tag} from "antd";
 
-const TherapistProfileDetailsCard = () => {
+const TherapistProfileDetailsCard = ({name, therapistType, languages, approaches, issues}) => {
     const divStyle = {
         display: 'flex',
         flexDirection: 'column',
@@ -40,9 +40,34 @@ const TherapistProfileDetailsCard = () => {
         flexDirection: 'row'
     }
 
+    const getTherapistType = (type) => {
+        switch (type) {
+            case 1:
+                return "Clinical Psychologist";
+            case 2:
+                return "Counsellor";
+            case 3:
+                return "Trainee";
+            default:
+                return "Unknown";
+        }
+    }
+
+    // Utility function to split array into chunks
+    const splitArrayIntoSegments = (array, segmentSize) => {
+        const result = [];
+        for (let i = 0; i < array.length; i += segmentSize) {
+            result.push(array.slice(i, i + segmentSize));
+        }
+        return result;
+    };
+
+    const issuesSegments = splitArrayIntoSegments(issues, 15);
+
+
     return(
         <div style={divStyle}>
-            <span style={{fontWeight: 'bold', fontSize: '32px'}}>Kassandra</span>
+            <span style={{fontWeight: 'bold', fontSize: '32px'}}>{name}</span>
             <Divider style={{margin: '13px 0px 12px 0px'}} />
             <div style={bottomDivStyle}>
                 <div style={leftDivStyle}>
@@ -52,62 +77,38 @@ const TherapistProfileDetailsCard = () => {
                             fontWeight: 'bold',
                             fontSize: '14px'
                         }}>Therapist Type:</span>
-                        <span style={{fontSize: '14px'}}>Trainee</span>
+                        <span style={{fontSize: '14px'}}>{getTherapistType(therapistType)}</span>
                     </div>
 
                     <div style={{margin: '0px 0px 20px 0px'}}>
                         <span
                             style={{margin: '0px 55px 0px 0px', fontWeight: 'bold', fontSize: '14px'}}>Language:</span>
-                        <Tag style={languageTagStyle}>English</Tag>
-                        <Tag style={languageTagStyle}>Chinese</Tag>
-                        <Tag style={languageTagStyle}>Malay</Tag>
+                        {languages.map((language, index) => (
+                            <Tag key={index} style={languageTagStyle}>{language}</Tag>
+                        ))}
                     </div>
 
                     <div>
                         <span style={{fontWeight: 'bold', fontSize: '14px'}}>Approaches:</span>
                         <ul style={unorderedListStyle}>
-                            <li style={listStyle}>Trauma-Focused Cognitive Behavioral Therapy (TF-CBT)</li>
-                            <li style={listStyle}>Eye Movement Desensitization and Reprocessing (EMDR)</li>
-                            <li style={listStyle}>Solution-Focused Brief Therapy (SFBT)</li>
-                            <li style={listStyle}>Acceptance and Commitment Therapy (ACT)</li>
-                            <li style={listStyle}>Person-Centered Therapy (PCT)</li>
-                            <li style={listStyle}>Expressive Art Therapy</li>
+                            {approaches.map((approach, index) => (
+                                <li key={index} style={listStyle}>{approach}</li>
+                            ))}
                         </ul>
                     </div>
                 </div>
 
 
-                <div style={rightDivStyle}>
+                <div style={{marginTop: '20px'}}>
                     <span style={{fontWeight: 'bold', fontSize: '14px'}}>I can help with:</span>
                     <div style={iCanHelpWithUnorderedListDivStyle}>
-                        <ul style={unorderedListStyle}>
-                            <li style={listStyle}>Abuse</li>
-                            <li style={listStyle}>Academic</li>
-                            <li style={listStyle}>Anger</li>
-                            <li style={listStyle}>Anxiety</li>
-                            <li style={listStyle}>Attention</li>
-                            <li style={listStyle}>Deficit Hyperactivity Disorder (ADHD)</li>
-                            <li style={listStyle}>Bipolar disorder</li>
-                            <li style={listStyle}>Borderline personality disorder</li>
-                            <li style={listStyle}>Burnout</li>
-                            <li style={listStyle}>Career</li>
-                            <li style={listStyle}>Depression</li>
-                            <li style={listStyle}>Eating disorders</li>
-                            <li style={listStyle}>Family</li>
-                            <li style={listStyle}>Grief</li>
-                            <li style={listStyle}>Interpersonal issues</li>
-                        </ul>
-
-                        <ul style={unorderedListStyle}>
-                            <li style={listStyle}>Major Depressive Disorder (OCD)</li>
-                            <li style={listStyle}>Panic</li>
-                            <li style={listStyle}>Post-Traumatic Stress Disorder (PTSD)</li>
-                            <li style={listStyle}>Career</li>
-                            <li style={listStyle}>Relationship</li>
-                            <li style={listStyle}>Self-development</li>
-                            <li style={listStyle}>Stress</li>
-                            <li style={listStyle}>Trauma</li>
-                        </ul>
+                        {issuesSegments.map((issuesSegment, index) => (
+                            <ul key={index} style={unorderedListStyle}>
+                                {issuesSegment.map((issue, index2) => (
+                                    <li key={index2} style={listStyle}>{issue}</li>
+                                ))}
+                            </ul>
+                        ))}
                     </div>
                 </div>
             </div>

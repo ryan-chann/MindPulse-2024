@@ -1,8 +1,8 @@
 import {Button, Image, Tag} from "antd";
-import React, {useEffect} from "react";
 import {SearchOutlined} from "@ant-design/icons";
+import { Link } from 'react-router-dom';
 
-const TherapistCard = ({available, therapistName, therapistType, therapistImage}) => {
+const TherapistCard = ({therapistInfo}) => {
 
     const therapistCardStyle = {
         display: 'flex',
@@ -75,11 +75,13 @@ const TherapistCard = ({available, therapistName, therapistType, therapistImage}
 
     return(
         <div style={therapistCardStyle}>
-            {!available ? (<Tag style={fullCapacityTagStyle}>At full capacity</Tag>) : (<Tag style={openToNewClientTagStyle}>Open to new client</Tag>)}
-            <Image width={200} height={200} preview={false} src={therapistImage}/>
-            <span style={therapistNameSpanStyle}>{therapistName}</span>
-            <span style={therapistTypeSpanStyle}>{getTherapistType(therapistType)}</span>
-            <Button type="primary" icon={<SearchOutlined />} style={viewProfileButtonStyle}>View Profile </Button>
+            {!therapistInfo.available ? (<Tag style={fullCapacityTagStyle}>At full capacity</Tag>) : (<Tag style={openToNewClientTagStyle}>Open to new client</Tag>)}
+            <Image width={200} height={200} preview={false} src={therapistInfo.imageUrl}/>
+            <span style={therapistNameSpanStyle}>{therapistInfo.name}</span>
+            <span style={therapistTypeSpanStyle}>{getTherapistType(therapistInfo.type)}</span>
+            <Link to={`/profile/${therapistInfo.id}`}>
+                <Button type="primary" icon={<SearchOutlined />} style={viewProfileButtonStyle}>View Profile </Button>
+            </Link>
         </div>
     )
 }

@@ -7,6 +7,7 @@ export default defineConfig({
         extensions: ['.js', '.jsx'],
     },
     server: {
+        port: 8080,
         open: true,
     },
 })

@@ -46,4 +46,17 @@ public class TherapistInfoRepository {
             throw new RuntimeException("Failed to query", e);
         }
     }
+
+    public TherapistInfo findById(String id) {
+        try{
+            QueryEnhancedRequest queryEnhancedRequest = QueryEnhancedRequest.builder()
+                    .queryConditional(QueryConditional.keyEqualTo(pk -> pk.partitionValue(STR."therapist#\{id}").sortValue("info")))
+                    .build();
+
+            return awsDynamoDbTable.getTherapistInfoTable().query(queryEnhancedRequest).items().stream().findFirst().orElse(null);
+        } catch (DynamoDbException e){
+            log.error(STR."Failed to execute findById, error message \{e.getMessage()}");
+            throw new RuntimeException("Failed to query", e);
+        }
+    }
 }

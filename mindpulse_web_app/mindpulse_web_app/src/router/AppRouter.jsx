@@ -1,11 +1,14 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import TherapistInformation from "../pages/TherapistInformation";
+
+import TherapistProfile from "../pages/TherapistProfile";
+import TherapistListing from "../pages/TherapistListing";
 
 const AppRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<TherapistInformation/>} />
+                <Route path="/" element={<TherapistListing />} />
+                <Route path="/profile/:id" element={<TherapistProfile />} />
             </Routes>
         </BrowserRouter>
     );
