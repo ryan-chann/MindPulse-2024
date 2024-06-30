@@ -4,7 +4,7 @@ const TherapistProfileDetailsCard = ({name, therapistType, languages, approaches
     const divStyle = {
         display: 'flex',
         flexDirection: 'column',
-        width: '863px'
+        width: '820px'
     }
 
     const languageTagStyle = {
@@ -23,11 +23,7 @@ const TherapistProfileDetailsCard = ({name, therapistType, languages, approaches
     }
 
     const leftDivStyle = {
-        width: '343px'
-    }
-
-    const rightDivStyle = {
-        width: '520px'
+        width: '380px'
     }
 
     const bottomDivStyle = {
@@ -65,10 +61,10 @@ const TherapistProfileDetailsCard = ({name, therapistType, languages, approaches
     const issuesSegments = splitArrayIntoSegments(issues, 15);
 
 
-    return(
+    return (
         <div style={divStyle}>
             <span style={{fontWeight: 'bold', fontSize: '32px'}}>{name}</span>
-            <Divider style={{margin: '13px 0px 12px 0px'}} />
+            <Divider style={{margin: '13px 0px 12px 0px'}}/>
             <div style={bottomDivStyle}>
                 <div style={leftDivStyle}>
                     <div style={{margin: '0px 0px 20px 0px'}}>

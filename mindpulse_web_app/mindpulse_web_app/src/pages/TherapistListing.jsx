@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Col, Pagination, Row } from 'antd';
 import TherapistCard from '../components/Card/TherapistCard';
 import {fetchAllTherapistsInfo} from '../api/therapistApi';
+import '../assets/styles.css'
 
 const itemsPerPage = 8;
 
