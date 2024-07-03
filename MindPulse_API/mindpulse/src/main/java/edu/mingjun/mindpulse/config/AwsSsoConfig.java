@@ -1,6 +1,9 @@
 package edu.mingjun.mindpulse.config;
 
 import edu.mingjun.mindpulse.global.AwsDynamoDb;
+import edu.mingjun.mindpulse.singleton.AwsDynamoDbClientSingleton;
+import edu.mingjun.mindpulse.singleton.AwsDynamoDbTableSingleton;
+import edu.mingjun.mindpulse.singleton.AwsSsoCredentialsSingleton;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,15 +30,15 @@ import java.util.Scanner;
 public class AwsSsoConfig {
 
     private static void connectToAws(String accessKeyId, String secretAccessKey, String sessionToken) {
-        AwsSsoCredentials awsSsoCredentials = AwsSsoCredentials.getInstance();
-        AwsDynamoDbClient awsDynamoDbClient = AwsDynamoDbClient.getInstance();
+        AwsSsoCredentialsSingleton awsSsoCredentialsSingleton = AwsSsoCredentialsSingleton.getInstance();
+        AwsDynamoDbClientSingleton awsDynamoDbClientSingleton = AwsDynamoDbClientSingleton.getInstance();
 
-        awsSsoCredentials.setAccessKeyId(accessKeyId);
-        awsSsoCredentials.setSecretAccessKey(secretAccessKey);
-        awsSsoCredentials.setSessionToken(sessionToken);
+        awsSsoCredentialsSingleton.setAccessKeyId(accessKeyId);
+        awsSsoCredentialsSingleton.setSecretAccessKey(secretAccessKey);
+        awsSsoCredentialsSingleton.setSessionToken(sessionToken);
 
         StsClient stsClient = StsClient.builder()
-                .credentialsProvider(StaticCredentialsProvider.create(awsSsoCredentials.getAwsCredentials()))
+                .credentialsProvider(StaticCredentialsProvider.create(awsSsoCredentialsSingleton.getAwsCredentials()))
                 .region(Region.of(AwsDynamoDb.AWS_SSO_REGION))
                 .build();
 
@@ -43,22 +46,22 @@ public class AwsSsoConfig {
         try {
             GetCallerIdentityResponse response = stsClient.getCallerIdentity(getCallerIdentityRequest);
 
-            awsDynamoDbClient.setDynamoDbClient(DynamoDbClient.builder()
-                    .credentialsProvider(StaticCredentialsProvider.create(awsSsoCredentials.getAwsCredentials()))
+            awsDynamoDbClientSingleton.setDynamoDbClient(DynamoDbClient.builder()
+                    .credentialsProvider(StaticCredentialsProvider.create(awsSsoCredentialsSingleton.getAwsCredentials()))
                     .region(Region.of(AwsDynamoDb.AWS_DYNAMODB_REGION))
                     .build()
             );
 
-            awsDynamoDbClient.setDynamoDbEnhancedClient(DynamoDbEnhancedClient.builder()
-                    .dynamoDbClient(awsDynamoDbClient.getDynamoDbClient())
+            awsDynamoDbClientSingleton.setDynamoDbEnhancedClient(DynamoDbEnhancedClient.builder()
+                    .dynamoDbClient(awsDynamoDbClientSingleton.getDynamoDbClient())
                     .build()
             );
 
-            AwsDynamoDbTable awsDynamoDbTable = AwsDynamoDbTable.getInstance();
+            AwsDynamoDbTableSingleton awsDynamoDbTableSingleton = AwsDynamoDbTableSingleton.getInstance();
 
-            if (awsDynamoDbClient.getDynamoDbClient() != null){
+            if (awsDynamoDbClientSingleton.getDynamoDbClient() != null){
                 log.info("DynamoDB client created");
-                if (awsDynamoDbClient.getDynamoDbEnhancedClient() != null) {
+                if (awsDynamoDbClientSingleton.getDynamoDbEnhancedClient() != null) {
                     log.info("DynamoDB enhanced client created");
                 }
             }

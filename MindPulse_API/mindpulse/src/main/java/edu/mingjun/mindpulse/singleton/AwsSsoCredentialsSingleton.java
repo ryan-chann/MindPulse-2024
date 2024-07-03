@@ -1,4 +1,4 @@
-package edu.mingjun.mindpulse.config;
+package edu.mingjun.mindpulse.singleton;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,16 +9,16 @@ import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class AwsSsoCredentials {
-    private static AwsSsoCredentials awsSsoCredentialsSingleton = null;
+public class AwsSsoCredentialsSingleton {
+    private static AwsSsoCredentialsSingleton awsSsoCredentialsSingleton = null;
 
     private String accessKeyId;
     private String secretAccessKey;
     private String sessionToken;
 
-    public static AwsSsoCredentials getInstance() {
+    public static AwsSsoCredentialsSingleton getInstance() {
         if (awsSsoCredentialsSingleton == null) {
-            awsSsoCredentialsSingleton = new AwsSsoCredentials();
+            awsSsoCredentialsSingleton = new AwsSsoCredentialsSingleton();
         }
         return awsSsoCredentialsSingleton;
     }

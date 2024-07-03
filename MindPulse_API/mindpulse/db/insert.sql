@@ -1,4 +1,5 @@
 INSERT INTO MindPulse VALUE {'PK': 'nextSequence', 'SK': 'therapistId', 'value': 21};
+INSERT INTO MindPulse VALUE {'PK': 'nextSequence#serviceId','SK': 'value','value': 3};
 
 INSERT INTO MindPulse VALUE {'PK': 'therapist#T1', 'SK': 'info', 'name': 'Drake Pirrey', 'type': 2, 'isAvailable': false, 'imageUrl': 'https://mingjun-mindpulse.s3.ap-southeast-3.amazonaws.com/therapist/T1.jpg'};
 INSERT INTO MindPulse VALUE {'PK': 'therapist#T2', 'SK': 'info', 'name': 'Archer Titley', 'type': 1, 'isAvailable': false, 'imageUrl': 'https://mingjun-mindpulse.s3.ap-southeast-3.amazonaws.com/therapist/T2.jpg'};
@@ -132,5 +133,34 @@ INSERT INTO MindPulse VALUE {'PK': 'therapist#T18', 'SK': 'assistance', 'issues'
 INSERT INTO MindPulse VALUE {'PK': 'therapist#T19', 'SK': 'assistance', 'issues': ['Sexual Issues', 'Phobias', 'Addiction', 'Anxiety', 'Post-Traumatic Stress Disorder (PTSD)', 'Relationship Issues', 'Coping Skills', 'Grief', 'Eating Disorders', 'Self-Esteem', 'Social Anxiety', 'Body Dysmorphic Disorder', 'Anger Management', 'Work-Related Stress', 'Bipolar Disorder']};
 INSERT INTO MindPulse VALUE {'PK': 'therapist#T20', 'SK': 'assistance', 'issues': ['Life Transitions', 'Phobias', 'Body Dysmorphic Disorder', 'Chronic Illness', 'Anger Management', 'Emotional Abuse', 'Addiction', 'Post-Traumatic Stress Disorder (PTSD)', 'Obsessive-Compulsive Disorder (OCD)', 'Parenting Issues', 'Suicidal Thoughts', 'Sexual Issues', 'Eating Disorders', 'Domestic Violence', 'Self-Esteem', 'Grief', 'Body Dysmorphic Disorder', 'Trauma', 'Stress', 'Life Transitions', 'Panic Attacks', 'Anger Management', 'Chronic Pain', 'Domestic Violence', 'Bipolar Disorder', 'Self-Harm', 'Emotional Abuse']};
 
+INSERT INTO MindPulse VALUE {'PK': 'serviceOffered','SK': 'S1','name': 'Mental Health Screening','rate':
+    {
+        'OnlineRate': {
+            'Trainee': 25.00,
+            'Counsellor': 95.00,
+            'ClinicalPsychologist': 95.00
+        },
+        'InPersonRate': {
+            'Trainee': 25.00,
+            'Counsellor': 95.00,
+            'ClinicalPsychologist': 95.00
+        }
+    }
+};
 
+INSERT INTO MindPulse VALUE {'PK': 'serviceOffered','SK': 'S2','name': 'Individual Therapy','rate':
+    {
+        'OnlineRate': {
+            'Trainee': 55.00,
+            'Counsellor': 165.00,
+            'ClinicalPsychologist': 195.00
+        },
+        'InPersonRate': {
+            'Trainee': 65.00,
+            'Counsellor': 220.00,
+            'ClinicalPsychologist': 250.00
+        }
+    }
+};
 
+INSERT INTO MindPulse VALUE {'PK': 'tax','SK': 'rate','value': 0.08};

@@ -1,6 +1,6 @@
 package edu.mingjun.mindpulse.repository;
 
-import edu.mingjun.mindpulse.config.AwsDynamoDbTable;
+import edu.mingjun.mindpulse.singleton.AwsDynamoDbTableSingleton;
 import edu.mingjun.mindpulse.model.TherapistLanguage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -11,10 +11,10 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 @Slf4j
 @Repository
 public class TherapistLanguageRepository {
-    private final AwsDynamoDbTable awsDynamoDbTable;
+    private final AwsDynamoDbTableSingleton awsDynamoDbTableSingleton;
 
     public TherapistLanguageRepository(){
-        this.awsDynamoDbTable = AwsDynamoDbTable.getInstance();
+        this.awsDynamoDbTableSingleton = AwsDynamoDbTableSingleton.getInstance();
     }
 
     public TherapistLanguage findById(String id){
@@ -23,7 +23,7 @@ public class TherapistLanguageRepository {
                     .queryConditional(QueryConditional.keyEqualTo(pk -> pk.partitionValue(STR."therapist#\{id}").sortValue("language")))
                     .build();
 
-            return awsDynamoDbTable.getTherapistLanguageTable().query(queryEnhancedRequest).items().stream().findFirst().orElse(null);
+            return awsDynamoDbTableSingleton.getTherapistLanguageTable().query(queryEnhancedRequest).items().stream().findFirst().orElse(null);
         } catch (DynamoDbException e){
             log.error(STR."Failed to execute findLanguagesById, error message \{e.getMessage()}");
             throw new RuntimeException("Failed to query", e);

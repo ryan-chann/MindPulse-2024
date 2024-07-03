@@ -1,13 +1,14 @@
+import {Button, Col, Divider, Row, Steps} from "antd";
+import {DoubleRightOutlined} from "@ant-design/icons";
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 import TherapistProfileCard from "../components/Card/TherapistProfileCard";
 import TherapistProfileDetailsCard from "../components/Card/TherapistProfileDetailsCard";
-import React, {useEffect, useState} from "react";
-import {fetchTherapistProfileById} from "../api/therapistApi";
-import {useParams} from "react-router-dom";
-import {Button, Col, Divider, Row, Steps} from "antd";
-import ChooseAppointmentForm from "../components/Forms/ChooseAppointmentForm";
-import '../assets/styles.css'
-import {DoubleRightOutlined} from "@ant-design/icons";
 import YourInformationForm from "../components/Forms/YourInformationForm";
+import ChooseAppointmentForm from "../components/Forms/ChooseAppointmentForm";
+import {fetchTherapistProfileById} from "../api/therapistApi";
+import {fetchAllServiceOffered} from "../api/pricingApi";
+import '../assets/styles.css'
 
 const therapistProfileDivStyle = {
     width: '1170px'
@@ -36,24 +37,29 @@ const dividerStyle = {
     margin: '50px 0px 15px 149px'
 }
 
-const steps = [
-    {
-        title: 'Choose Appointment',
-        content: <ChooseAppointmentForm />
-    },
-    {
-        title: 'Your Information',
-        content: <YourInformationForm />
-    },
-    {
-        title: 'Confirmation',
-        content: <ChooseAppointmentForm />
-    },
+const taxRate = 0.08;
+
+const offDates = [
+    '2024-07-01',
+    '2024-07-05',
+    '2024-07-10'
+];
+
+const workingDays = [1, 2, 3, 4, 5];
+
+const workingStartTime = '09:00';
+const workingEndTime = '18:00';
+
+const unavailableSlots = [
+    "2024-07-08T09:00:00",
+    "2024-07-08T11:00:00",
+    "2024-07-08T01:00:00"
 ];
 
 const TherapistProfile = () => {
     const {id} = useParams();
     const [therapistProfile, setTherapistProfile] = useState([]);
+    const [serviceOffered, setServiceOffered] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [current, setCurrent] = useState(0);
@@ -65,16 +71,15 @@ const TherapistProfile = () => {
         setCurrent(current - 1);
     };
 
-    const items = steps.map((item) => ({
-        key: item.title,
-        title: item.title,
-    }));
-
     useEffect(() => {
-        const getTherapistProfile = async () => {
+        const fetchData = async () => {
             try {
-                const data = await fetchTherapistProfileById(id);
-                setTherapistProfile(data);
+                const [therapistData, serviceData] = await Promise.all([
+                    fetchTherapistProfileById(id),
+                    fetchAllServiceOffered()
+                ]);
+                setTherapistProfile(therapistData);
+                setServiceOffered(serviceData);
             } catch (error) {
                 setError(error);
             } finally {
@@ -82,8 +87,37 @@ const TherapistProfile = () => {
             }
         };
 
-        getTherapistProfile();
+        fetchData();
     }, [id]);
+
+    const steps = [
+        {
+            title: 'Choose Appointment',
+            content: therapistProfile.therapistInfo && (<ChooseAppointmentForm serviceOffered={serviceOffered}
+                                                                               therapistType={therapistProfile.therapistInfo.type}
+                                                                               taxRate={taxRate}
+                                                                               offDates={offDates}
+                                                                               workingDays={workingDays}
+                                                                               workingStartTime={workingStartTime}
+                                                                               workingEndTime={workingEndTime}
+                                                                               unavailableSlots={unavailableSlots}
+            />)
+        },
+        {
+            title: 'Your Information',
+            content: <YourInformationForm />
+        },
+        {
+            title: 'Confirmation',
+            content: <p>Hi</p>
+        },
+    ];
+
+    const items = steps.map((item) => ({
+        key: item.title,
+        title: item.title,
+    }));
+
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;

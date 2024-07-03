@@ -1,6 +1,6 @@
 package edu.mingjun.mindpulse.repository;
 
-import edu.mingjun.mindpulse.config.AwsDynamoDbTable;
+import edu.mingjun.mindpulse.singleton.AwsDynamoDbTableSingleton;
 import edu.mingjun.mindpulse.model.TherapistInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 @Slf4j
 @Repository
 public class TherapistInfoRepository {
-    private final AwsDynamoDbTable awsDynamoDbTable;
+    private final AwsDynamoDbTableSingleton awsDynamoDbTableSingleton;
 
     public TherapistInfoRepository(){
-        this.awsDynamoDbTable = AwsDynamoDbTable.getInstance();
+        this.awsDynamoDbTableSingleton = AwsDynamoDbTableSingleton.getInstance();
     }
 
     public List<TherapistInfo> findAll() {
@@ -40,7 +40,7 @@ public class TherapistInfoRepository {
                     .filterExpression(filterExpression)
                     .build();
 
-            return awsDynamoDbTable.getTherapistInfoTable().scan(scanEnhancedRequest).items().stream().collect(Collectors.toList());
+            return awsDynamoDbTableSingleton.getTherapistInfoTable().scan(scanEnhancedRequest).items().stream().collect(Collectors.toList());
         } catch (DynamoDbException e) {
             log.error(STR."Failed to execute findAll, error message \{e.getMessage()}");
             throw new RuntimeException("Failed to query", e);
@@ -53,7 +53,7 @@ public class TherapistInfoRepository {
                     .queryConditional(QueryConditional.keyEqualTo(pk -> pk.partitionValue(STR."therapist#\{id}").sortValue("info")))
                     .build();
 
-            return awsDynamoDbTable.getTherapistInfoTable().query(queryEnhancedRequest).items().stream().findFirst().orElse(null);
+            return awsDynamoDbTableSingleton.getTherapistInfoTable().query(queryEnhancedRequest).items().stream().findFirst().orElse(null);
         } catch (DynamoDbException e){
             log.error(STR."Failed to execute findById, error message \{e.getMessage()}");
             throw new RuntimeException("Failed to query", e);

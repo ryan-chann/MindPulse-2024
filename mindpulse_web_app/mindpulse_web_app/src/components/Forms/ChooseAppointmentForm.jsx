@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {DatePicker, Space, Flex, Radio, Col, Row, Button} from "antd";
 import dayjs from "dayjs";
-import {DoubleRightOutlined} from "@ant-design/icons";
 
 const divStyle = {
     margin: '0px 0px 0px 250px'
@@ -21,20 +20,43 @@ const wrapperStyle = {
     width: 300,
 };
 
-const offDates = [
-    '2024-07-01',
-    '2024-07-05',
-    '2024-07-10'
-];
+const ChooseAppointmentForm = ({serviceOffered, therapistType, taxRate, offDates, workingDays, workingStartTime, workingEndTime, unavailableSlots}) => {
+    const mapTherapistType = (type) => {
+        switch (type) {
+            case 1:
+                return 'ClinicalPsychologist';
 
-const workingDays = [1, 2, 3, 4, 5];
+            case 2:
+                return 'Counsellor';
 
+            case 3:
+                return 'Trainee';
 
-const ChooseAppointmentForm = () => {
+            default:
+                return '';
+        }
+    };
+
+    const normalizedTherapistType = mapTherapistType(therapistType);
+
+    const [mode, setMode] = useState("inPerson");
+    const [session, setSession] = useState("firstSession");
+    const [selectedService, setSelectedService] = useState(serviceOffered[0]);
     const dayjsOffDates = offDates.map(dateString => dayjs(dateString));
+    const [selectedTime, setSelectedTime] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(null);
+
+    const S1 = serviceOffered.find(service => service.sk === "S1");
+    const S2 = serviceOffered.find(service => service.sk === "S2");
+
+    const S1Name = S1.name;
+    const S1Price = mode === 'online' ? S1.rate.OnlineRate[mapTherapistType(therapistType)] : S1.rate.InPersonRate[mapTherapistType(therapistType)];
+    const S2Name = S2.name;
+    const S2Price = mode === 'online' ? S2.rate.OnlineRate[mapTherapistType(therapistType)] : S2.rate.InPersonRate[mapTherapistType(therapistType)];
 
     const onChange = (date, dateString) => {
-        console.log(date, dateString);
+        setSelectedDate(date);
+        setSelectedTime(null); // Reset selected time when date changes
     };
 
     const disabledDates = (current) => {
@@ -48,6 +70,36 @@ const ChooseAppointmentForm = () => {
             return true;
         }
         return false;
+    };
+
+    const calculateTotalPrice = () => {
+        let basePrice = session === "firstSession" ? S1Price + S2Price : S2Price;
+        let tax = basePrice * taxRate;
+        return basePrice + tax;
+    };
+
+    const generateTimeSlots = (start, end) => {
+        let slots = [];
+        let current = dayjs(start, 'HH:mm');
+        const endDayjs = dayjs(end, 'HH:mm');
+
+        while (current.isBefore(endDayjs) || current.isSame(endDayjs)) {
+            slots.push(current.format('HH:mm'));
+            current = current.add(2, 'hour');
+        }
+
+        return slots;
+    };
+
+    const timeSlots = selectedDate ? generateTimeSlots(workingStartTime, workingEndTime).filter(slot => {
+        return !unavailableSlots.some(unavailableSlot => {
+            const slotDateTime = selectedDate.format('YYYY-MM-DD') + 'T' + slot + ':00';
+            return unavailableSlot === slotDateTime;
+        });
+    }) : [];
+
+    const handleTimeSelect = (time) => {
+        setSelectedTime(prevSelectedTime => prevSelectedTime === time ? null : time);
     };
 
     return (
@@ -65,7 +117,7 @@ const ChooseAppointmentForm = () => {
                             <div style={{margin: '0px 0px 30px 0px'}}>
                                 <span style={formLabelSpanStyle}>Mode of conduct</span>
                                 <Flex vertical gap="middle" style={{margin: '10px 0px 0px 0px'}}>
-                                    <Radio.Group defaultValue="inPerson">
+                                    <Radio.Group defaultValue="inPerson" onChange={(e) => setMode(e.target.value)}>
                                         <Radio.Button value="inPerson">In-Person</Radio.Button>
                                         <Radio.Button value="online">Online</Radio.Button>
                                     </Radio.Group>
@@ -75,7 +127,7 @@ const ChooseAppointmentForm = () => {
                             <div style={{margin: '0px 0px 35px 0px'}}>
                                 <span style={formLabelSpanStyle}>Session</span>
                                 <Flex vertical gap="middle" style={{margin: '10px 0px 0px 0px'}}>
-                                    <Radio.Group defaultValue="firstSession">
+                                    <Radio.Group defaultValue="firstSession" onChange={(e) => setSession(e.target.value)}>
                                         <Radio.Button value="firstSession">First session</Radio.Button>
                                         <Radio.Button value="returningSession">Returning session</Radio.Button>
                                     </Radio.Group>
@@ -91,32 +143,34 @@ const ChooseAppointmentForm = () => {
                         </Col>
 
                         <Col span={12}>
-                            <Space direction="vertical" size="small" style={{display: 'flex'}}>
+                            <Space direction="vertical" size="small" style={{display: 'flex', height: '170px'}}>
                                 <span style={formLabelSpanStyle}>Price</span>
                                 <div style={{margin: '0px 0px 51px 30px'}}>
                                     <Space direction="vertical" size="small" style={{display: 'flex'}}>
+                                        {session === "firstSession" && (
+                                            <Row>
+                                                <Col span={12}>
+                                                    <span style={{ fontSize: '12px' }}>{S1Name}:</span>
+                                                </Col>
+                                                <Col span={12}>
+                                                    <span style={{ fontSize: '12px' }}>RM {S1Price.toFixed(2)}</span>
+                                                </Col>
+                                            </Row>
+                                        )}
                                         <Row>
                                             <Col span={12}>
-                                                <span style={{fontSize: '12px'}}>Mental Health Screening:</span>
+                                                <span style={{fontSize: '12px'}}>{S2Name}:</span>
                                             </Col>
                                             <Col span={12}>
-                                                <span style={{fontSize: '12px'}}>RM 30.00</span>
+                                                <span style={{fontSize: '12px'}}>RM {S2Price.toFixed(2)}</span>
                                             </Col>
                                         </Row>
                                         <Row>
                                             <Col span={12}>
-                                                <span style={{fontSize: '12px'}}>Therapy Session:</span>
+                                                <span style={{fontSize: '12px'}}>Tax ({(taxRate * 100).toFixed(0)}%):</span>
                                             </Col>
                                             <Col span={12}>
-                                                <span style={{fontSize: '12px'}}>RM 55.00</span>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col span={12}>
-                                                <span style={{fontSize: '12px'}}>Tax (8%):</span>
-                                            </Col>
-                                            <Col span={12}>
-                                                <span style={{fontSize: '12px'}}>RM 6.80</span>
+                                                <span style={{fontSize: '12px'}}>RM {(calculateTotalPrice() - (session === "firstSession" ? S1Price + S2Price : S2Price)).toFixed(2)}</span>
                                             </Col>
                                         </Row>
                                         <Row>
@@ -124,28 +178,26 @@ const ChooseAppointmentForm = () => {
                                                 <span style={{fontSize: '14px', fontWeight:'bold'}}>Total Price:</span>
                                             </Col>
                                             <Col span={12}>
-                                                <span style={{fontSize: '14px', fontWeight:'bold'}}>RM 91.80</span>
+                                                <span style={{fontSize: '14px', fontWeight:'bold'}}>RM {calculateTotalPrice().toFixed(2)}</span>
                                             </Col>
                                         </Row>
                                     </Space>
                                 </div>
                             </Space>
 
-                            <Space direction="vertical" size="middle" style={{display: 'flex'}}>
+                            <Space direction="vertical" size="middle" style={{ display: 'flex', height: '100px' }}>
                                 <span style={formLabelSpanStyle}>Select Time</span>
-                                <div>
-                                    <Space direction="horizontal" size="small" style={{display: 'flex'}}>
-                                        <Row gutter={[16, 16]}>
-                                            <Col span={6}><Button size={"small"}>10:00 am</Button></Col>
-                                            <Col span={6}><Button size={"small"}>11:00 am</Button></Col>
-                                            <Col span={6}><Button size={"small"}>12:00 pm</Button></Col>
-                                            <Col span={6}><Button size={"small"}>01:00 pm</Button></Col>
-                                            <Col span={6}><Button size={"small"}>02:00 pm</Button></Col>
-                                            <Col span={6}><Button size={"small"}>03:00 pm</Button></Col>
-                                            <Col span={6}><Button size={"small"}>04:00 pm</Button></Col>
-                                            <Col span={6}><Button size={"small"}>05:00 pm</Button></Col>
-                                        </Row>
-                                    </Space>
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                                    {timeSlots.map((slot, index) => (
+                                        <Button
+                                            key={index}
+                                            size="small"
+                                            type={slot === selectedTime ? 'primary' : 'default'}
+                                            onClick={() => handleTimeSelect(slot)}
+                                        >
+                                            {dayjs(slot, 'HH:mm').format('hh:mm A')}
+                                        </Button>
+                                    ))}
                                 </div>
                             </Space>
                         </Col>

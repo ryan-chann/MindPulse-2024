@@ -1,4 +1,4 @@
-package edu.mingjun.mindpulse.config;
+package edu.mingjun.mindpulse.singleton;
 
 import lombok.*;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
@@ -7,15 +7,15 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class AwsDynamoDbClient {
-    private static AwsDynamoDbClient awsDynamoDbClientSingleton = null;
+public class AwsDynamoDbClientSingleton {
+    private static AwsDynamoDbClientSingleton awsDynamoDbClientSingleton = null;
 
     private DynamoDbClient dynamoDbClient;
     private DynamoDbEnhancedClient dynamoDbEnhancedClient;
 
-    public static AwsDynamoDbClient getInstance() {
+    public static AwsDynamoDbClientSingleton getInstance() {
         if (awsDynamoDbClientSingleton == null) {
-            awsDynamoDbClientSingleton = new AwsDynamoDbClient();
+            awsDynamoDbClientSingleton = new AwsDynamoDbClientSingleton();
         }
         return awsDynamoDbClientSingleton;
     }

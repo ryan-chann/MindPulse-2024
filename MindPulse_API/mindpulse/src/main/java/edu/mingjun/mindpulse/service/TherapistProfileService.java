@@ -29,12 +29,12 @@ public class TherapistProfileService {
     }
 
     public TherapistProfile getProfileById(String id){
-        TherapistInfo therapistInfo = therapistInfoRepository.findById(id);
-        TherapistLanguage therapistLanguage = therapistLanguageRepository.findById(id);
-        TherapistModeOfConduct therapistModeOfConduct = therapistModeOfConductRepository.findById(id);
-        TherapistEducation therapistEducation = therapistEducationRepository.findById(id);
-        TherapistAssistance therapistAssistance = therapistAssistanceRepository.findById(id);
-        TherapistApproach therapistApproach = therapistApproachRepository.findById(id);
+        TherapistInfo therapistInfo = this.therapistInfoRepository.findById(id);
+        TherapistLanguage therapistLanguage = this.therapistLanguageRepository.findById(id);
+        TherapistModeOfConduct therapistModeOfConduct = this.therapistModeOfConductRepository.findById(id);
+        TherapistEducation therapistEducation = this.therapistEducationRepository.findById(id);
+        TherapistAssistance therapistAssistance = this.therapistAssistanceRepository.findById(id);
+        TherapistApproach therapistApproach = this.therapistApproachRepository.findById(id);
 
         return TherapistProfile.builder()
                 .therapistApproach(therapistApproach)
