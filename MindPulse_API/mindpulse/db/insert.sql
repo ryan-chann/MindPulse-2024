@@ -164,3 +164,217 @@ INSERT INTO MindPulse VALUE {'PK': 'serviceOffered','SK': 'S2','name': 'Individu
 };
 
 INSERT INTO MindPulse VALUE {'PK': 'tax','SK': 'rate','value': 0.08};
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T1',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [1, 2, 3, 4, 5],
+    'workingStartTime': '09:00',
+    'workingEndTime': '18:00',
+    'unavailableSlots': []
+    };
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T2',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [1, 3, 5],
+    'workingStartTime': '10:00',
+    'workingEndTime': '17:00',
+    'unavailableSlots': []
+    };
+
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T3',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [2, 4, 6],
+    'workingStartTime': '08:00',
+    'workingEndTime': '16:00',
+    'unavailableSlots': []
+    };
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T4',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [1, 2, 4, 5],
+    'workingStartTime': '11:00',
+    'workingEndTime': '19:00',
+    'unavailableSlots': []
+    };
+
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T5',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [3, 4, 5, 6],
+    'workingStartTime': '07:00',
+    'workingEndTime': '15:00',
+    'unavailableSlots': []
+    };
+
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T6',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [1, 2, 3, 4, 5],
+    'workingStartTime': '09:00',
+    'workingEndTime': '18:00',
+    'unavailableSlots': []
+    };
+
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T7',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [1, 3, 5],
+    'workingStartTime': '10:00',
+    'workingEndTime': '17:00',
+    'unavailableSlots': []
+    };
+
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T8',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [2, 4, 6],
+    'workingStartTime': '08:00',
+    'workingEndTime': '16:00',
+    'unavailableSlots': []
+    };
+
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T9',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [1, 2, 4, 5],
+    'workingStartTime': '11:00',
+    'workingEndTime': '19:00',
+    'unavailableSlots': []
+    };
+
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T10',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [1, 2, 3, 4, 5],
+    'workingStartTime': '09:00',
+    'workingEndTime': '18:00',
+    'unavailableSlots': []
+    };
+
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T11',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [3, 4, 5, 6],
+    'workingStartTime': '07:00',
+    'workingEndTime': '15:00',
+    'unavailableSlots': []
+    };
+
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T12',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [1, 3, 5],
+    'workingStartTime': '10:00',
+    'workingEndTime': '17:00',
+    'unavailableSlots': []
+    };
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T13',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [2, 4, 6],
+    'workingStartTime': '08:00',
+    'workingEndTime': '16:00',
+    'unavailableSlots': []
+    };
+
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T14',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [1, 2, 4, 5],
+    'workingStartTime': '11:00',
+    'workingEndTime': '19:00',
+    'unavailableSlots': []
+    };
+
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T15',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [1, 2, 3, 4, 5],
+    'workingStartTime': '09:00',
+    'workingEndTime': '18:00',
+    'unavailableSlots': []
+    };
+
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T16',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [3, 4, 5, 6],
+    'workingStartTime': '07:00',
+    'workingEndTime': '15:00',
+    'unavailableSlots': []
+    };
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T17',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [1, 3, 5],
+    'workingStartTime': '10:00',
+    'workingEndTime': '17:00',
+    'unavailableSlots': []
+    };
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T18',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [2, 4, 6],
+    'workingStartTime': '08:00',
+    'workingEndTime': '16:00',
+    'unavailableSlots': []
+    };
+
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T19',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [1, 2, 4, 5],
+    'workingStartTime': '11:00',
+    'workingEndTime': '19:00',
+    'unavailableSlots': []
+    };
+
+
+INSERT INTO MindPulse VALUE {
+    'PK': 'therapist#T20',
+    'SK': 'availability',
+    'offDates': [],
+    'workingDays': [1, 2, 3, 4, 5],
+    'workingStartTime': '09:00',
+    'workingEndTime': '18:00',
+    'unavailableSlots': []
+    };

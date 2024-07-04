@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {DatePicker, Space, Flex, Radio, Col, Row, Button} from "antd";
+import {DatePicker, Space, Flex, Radio, Col, Row, Button, Typography} from "antd";
 import dayjs from "dayjs";
+import {PriceCard} from "../Card";
+const { Text } = Typography;
+
 
 const divStyle = {
     margin: '0px 0px 0px 250px'
@@ -8,6 +11,7 @@ const divStyle = {
 
 const formDivStyle = {
     margin: '50px 0px 0px 0px',
+    height: '380px'
 }
 
 const formLabelSpanStyle = {
@@ -20,39 +24,19 @@ const wrapperStyle = {
     width: 300,
 };
 
-const ChooseAppointmentForm = ({serviceOffered, therapistType, taxRate, offDates, workingDays, workingStartTime, workingEndTime, unavailableSlots}) => {
-    const mapTherapistType = (type) => {
-        switch (type) {
-            case 1:
-                return 'ClinicalPsychologist';
+const flexContainerStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '4px'
+};
 
-            case 2:
-                return 'Counsellor';
 
-            case 3:
-                return 'Trainee';
-
-            default:
-                return '';
-        }
-    };
-
-    const normalizedTherapistType = mapTherapistType(therapistType);
-
+const ChooseAppointmentForm = ({s1, s2, taxRate, offDates, workingDays, workingStartTime, workingEndTime, unavailableSlots, chooseAppointmentFormChange}) => {
     const [mode, setMode] = useState("inPerson");
     const [session, setSession] = useState("firstSession");
-    const [selectedService, setSelectedService] = useState(serviceOffered[0]);
     const dayjsOffDates = offDates.map(dateString => dayjs(dateString));
     const [selectedTime, setSelectedTime] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
-
-    const S1 = serviceOffered.find(service => service.sk === "S1");
-    const S2 = serviceOffered.find(service => service.sk === "S2");
-
-    const S1Name = S1.name;
-    const S1Price = mode === 'online' ? S1.rate.OnlineRate[mapTherapistType(therapistType)] : S1.rate.InPersonRate[mapTherapistType(therapistType)];
-    const S2Name = S2.name;
-    const S2Price = mode === 'online' ? S2.rate.OnlineRate[mapTherapistType(therapistType)] : S2.rate.InPersonRate[mapTherapistType(therapistType)];
 
     const onChange = (date, dateString) => {
         setSelectedDate(date);
@@ -70,12 +54,6 @@ const ChooseAppointmentForm = ({serviceOffered, therapistType, taxRate, offDates
             return true;
         }
         return false;
-    };
-
-    const calculateTotalPrice = () => {
-        let basePrice = session === "firstSession" ? S1Price + S2Price : S2Price;
-        let tax = basePrice * taxRate;
-        return basePrice + tax;
     };
 
     const generateTimeSlots = (start, end) => {
@@ -101,6 +79,42 @@ const ChooseAppointmentForm = ({serviceOffered, therapistType, taxRate, offDates
     const handleTimeSelect = (time) => {
         setSelectedTime(prevSelectedTime => prevSelectedTime === time ? null : time);
     };
+
+    const getPrice = () => {
+        const rateType = mode === "online" ? "OnlineRate" : "InPersonRate";
+        let price = 0;
+
+        if (session === "firstSession") {
+            price += s1[rateType];
+        }
+        price += s2[rateType];
+
+        const tax = price * taxRate;
+        const totalPrice = price + tax;
+
+        return {
+            price,
+            tax,
+            totalPrice,
+        };
+    };
+
+    const { price, tax, totalPrice } = getPrice();
+
+    useEffect(() => {
+        const details = {
+            mode,
+            session,
+            selectedDate: selectedDate ? selectedDate.format('YYYY-MM-DD') : null,
+            selectedTime,
+            s1,
+            s2,
+            totalPrice,
+            taxRate,
+            tax,
+        };
+        chooseAppointmentFormChange(details);
+    }, [mode, session, selectedDate, selectedTime, s1, s2, totalPrice, tax]);
 
     return (
         <>
@@ -136,58 +150,33 @@ const ChooseAppointmentForm = ({serviceOffered, therapistType, taxRate, offDates
 
                             <div>
                                 <Space direction="vertical">
-                                    <span style={formLabelSpanStyle}>Select Date</span>
-                                    <DatePicker onChange={onChange} disabledDate={disabledDates} placeholder="No date selected" style={{width: '255px'}}/>
+                                    <div style={flexContainerStyle}>
+                                        <span style={formLabelSpanStyle}>Select Date</span>
+                                        {!selectedDate && <Text type="danger">*</Text>}
+                                    </div>
+                                    <DatePicker onChange={onChange} disabledDate={disabledDates}  placeholder="No date selected" style={{width: '255px'}}/>
                                 </Space>
                             </div>
                         </Col>
 
                         <Col span={12}>
-                            <Space direction="vertical" size="small" style={{display: 'flex', height: '170px'}}>
-                                <span style={formLabelSpanStyle}>Price</span>
-                                <div style={{margin: '0px 0px 51px 30px'}}>
-                                    <Space direction="vertical" size="small" style={{display: 'flex'}}>
-                                        {session === "firstSession" && (
-                                            <Row>
-                                                <Col span={12}>
-                                                    <span style={{ fontSize: '12px' }}>{S1Name}:</span>
-                                                </Col>
-                                                <Col span={12}>
-                                                    <span style={{ fontSize: '12px' }}>RM {S1Price.toFixed(2)}</span>
-                                                </Col>
-                                            </Row>
-                                        )}
-                                        <Row>
-                                            <Col span={12}>
-                                                <span style={{fontSize: '12px'}}>{S2Name}:</span>
-                                            </Col>
-                                            <Col span={12}>
-                                                <span style={{fontSize: '12px'}}>RM {S2Price.toFixed(2)}</span>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col span={12}>
-                                                <span style={{fontSize: '12px'}}>Tax ({(taxRate * 100).toFixed(0)}%):</span>
-                                            </Col>
-                                            <Col span={12}>
-                                                <span style={{fontSize: '12px'}}>RM {(calculateTotalPrice() - (session === "firstSession" ? S1Price + S2Price : S2Price)).toFixed(2)}</span>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col span={12}>
-                                                <span style={{fontSize: '14px', fontWeight:'bold'}}>Total Price:</span>
-                                            </Col>
-                                            <Col span={12}>
-                                                <span style={{fontSize: '14px', fontWeight:'bold'}}>RM {calculateTotalPrice().toFixed(2)}</span>
-                                            </Col>
-                                        </Row>
-                                    </Space>
-                                </div>
-                            </Space>
+                            <PriceCard
+                                session={session}
+                                mode={mode}
+                                s1={s1}
+                                s2={s2}
+                                taxRate={taxRate}
+                                price={price}
+                                tax={tax}
+                                totalPrice={totalPrice}
+                            />
 
                             <Space direction="vertical" size="middle" style={{ display: 'flex', height: '100px' }}>
-                                <span style={formLabelSpanStyle}>Select Time</span>
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                                <div style={{margin: '50px 0px 0px 0px', display: 'flex', alignItems: 'center', gap: '4px'}}>
+                                    <span style={formLabelSpanStyle}>Select Date</span>
+                                    {!selectedTime && <Text type="danger">*</Text>}
+                                </div>
+                                <div style={{display: 'flex', flexWrap: 'wrap', gap: '10px'}}>
                                     {timeSlots.map((slot, index) => (
                                         <Button
                                             key={index}

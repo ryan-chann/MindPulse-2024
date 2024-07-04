@@ -14,4 +14,5 @@ public class TherapistProfile {
     private TherapistApproach therapistApproach;
     private TherapistAssistance therapistAssistance;
     private TherapistEducation therapistEducation;
+    private TherapistAvailability therapistAvailability;
 }

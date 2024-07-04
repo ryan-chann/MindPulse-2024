@@ -14,6 +14,7 @@ public class TherapistProfileService {
     private final TherapistEducationRepository therapistEducationRepository;
     private final TherapistAssistanceRepository therapistAssistanceRepository;
     private final TherapistApproachRepository therapistApproachRepository;
+    private final TherapistAvailabilityRepository therapistAvailabilityRepository;
 
     public TherapistProfileService() {
         this.therapistInfoRepository = new TherapistInfoRepository();
@@ -22,6 +23,7 @@ public class TherapistProfileService {
         this.therapistEducationRepository = new TherapistEducationRepository();
         this.therapistAssistanceRepository = new TherapistAssistanceRepository();
         this.therapistApproachRepository = new TherapistApproachRepository();
+        this.therapistAvailabilityRepository = new TherapistAvailabilityRepository();
     }
 
     public List<TherapistInfo> getAllInfo() {
@@ -35,6 +37,7 @@ public class TherapistProfileService {
         TherapistEducation therapistEducation = this.therapistEducationRepository.findById(id);
         TherapistAssistance therapistAssistance = this.therapistAssistanceRepository.findById(id);
         TherapistApproach therapistApproach = this.therapistApproachRepository.findById(id);
+        TherapistAvailability therapistAvailability = this.therapistAvailabilityRepository.findById(id);
 
         return TherapistProfile.builder()
                 .therapistApproach(therapistApproach)
@@ -43,6 +46,7 @@ public class TherapistProfileService {
                 .therapistEducation(therapistEducation)
                 .therapistLanguage(therapistLanguage)
                 .therapistModeOfConduct(therapistModeOfConduct)
+                .therapistAvailability(therapistAvailability)
                 .build();
     }
 }

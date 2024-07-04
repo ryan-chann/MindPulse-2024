@@ -1,6 +1,6 @@
 package edu.mingjun.mindpulse.config;
 
-import edu.mingjun.mindpulse.global.AwsDynamoDb;
+import edu.mingjun.mindpulse.global.GlobalVariables;
 import edu.mingjun.mindpulse.singleton.AwsDynamoDbClientSingleton;
 import edu.mingjun.mindpulse.singleton.AwsDynamoDbTableSingleton;
 import edu.mingjun.mindpulse.singleton.AwsSsoCredentialsSingleton;
@@ -39,7 +39,7 @@ public class AwsSsoConfig {
 
         StsClient stsClient = StsClient.builder()
                 .credentialsProvider(StaticCredentialsProvider.create(awsSsoCredentialsSingleton.getAwsCredentials()))
-                .region(Region.of(AwsDynamoDb.AWS_SSO_REGION))
+                .region(Region.of(GlobalVariables.AWS_SSO_REGION))
                 .build();
 
         GetCallerIdentityRequest getCallerIdentityRequest = GetCallerIdentityRequest.builder().build();
@@ -48,7 +48,7 @@ public class AwsSsoConfig {
 
             awsDynamoDbClientSingleton.setDynamoDbClient(DynamoDbClient.builder()
                     .credentialsProvider(StaticCredentialsProvider.create(awsSsoCredentialsSingleton.getAwsCredentials()))
-                    .region(Region.of(AwsDynamoDb.AWS_DYNAMODB_REGION))
+                    .region(Region.of(GlobalVariables.AWS_DYNAMODB_REGION))
                     .build()
             );
 
