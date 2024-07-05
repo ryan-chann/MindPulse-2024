@@ -3,10 +3,16 @@ package edu.mingjun.mindpulse.controller;
 import edu.mingjun.mindpulse.model.AppointmentRequest;
 import edu.mingjun.mindpulse.model.ServiceOffered;
 import edu.mingjun.mindpulse.service.AppointmentService;
+import edu.mingjun.mindpulse.service.EmailService;
 import edu.mingjun.mindpulse.service.FileUploadService;
+import freemarker.template.TemplateException;
+import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.mail.Email;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +27,9 @@ public class AppointmentController {
 
     private final AppointmentService appointmentService;
     private final FileUploadService fileUploadService;
+
+    @Autowired
+    private EmailService emailService;
 
     private byte[] fileBytes;
     private String fileName;
@@ -51,19 +60,13 @@ public class AppointmentController {
     @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/submit")
     public void submitBookingApplication(@RequestBody AppointmentRequest appointmentRequest){
-        this.appointmentService.updateTherapistUnavailableSlot(appointmentRequest.getTherapistId(), appointmentRequest.getSelectedTime(), appointmentRequest.getSelectedDate());
-//        System.out.println(STR."Therapist Type \{appointmentRequest.getTherapistType()}");
-//        System.out.println(STR."Therapist Name \{appointmentRequest.getTherapistName()}");
-//        System.out.println(STR."Mode \{appointmentRequest.getMode()}");
-//        System.out.println(STR."Session \{appointmentRequest.getSession()}");
-//        System.out.println(STR."Selected Date \{appointmentRequest.getSelectedDate()}");
-//        System.out.println(STR."Selected Time \{appointmentRequest.getSelectedTime()}");
-//        System.out.println(STR."Full Name \{appointmentRequest.getFullName()}");
-//        System.out.println(STR."Email Address \{appointmentRequest.getEmailAddress()}");
-//        System.out.println(STR."NRIC \{appointmentRequest.getNric()}");
-//        System.out.println(STR."Phone Number \{appointmentRequest.getPhoneNumber()}");
-//        System.out.println(STR."Total Price \{appointmentRequest.getTotalPrice()}");
-        boolean fileSaved = this.saveFile();
+        try {
+            this.appointmentService.updateTherapistUnavailableSlot(appointmentRequest.getTherapistId(), appointmentRequest.getSelectedTime(), appointmentRequest.getSelectedDate());
+            this.emailService.sendBookingConfirmation(appointmentRequest.getEmailAddress(), appointmentRequest);
+            boolean fileSaved = this.saveFile();
+        } catch (MessagingException | IOException | TemplateException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:8080")

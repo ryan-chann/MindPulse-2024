@@ -79,16 +79,20 @@ public class AwsSsoConfig {
     }
 
     public static void main() throws IOException {
-        Scanner scanner = new Scanner(System.in);
+//        Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter AWS Access Key ID: ");
-        String accessKeyId = scanner.nextLine();
+        String accessKeyId = System.getenv("AWS_ACCESS_KEY_ID");
+        String secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY");
+        String sessionToken = System.getenv("AWS_SESSION_TOKEN");
 
-        System.out.print("Enter AWS Secret Access Key: ");
-        String secretAccessKey = scanner.nextLine();
-
-        System.out.print("Enter AWS Session Token: ");
-        String sessionToken = scanner.nextLine();
+//        System.out.print("Enter AWS Access Key ID: ");
+//        String accessKeyId = scanner.nextLine();
+//
+//        System.out.print("Enter AWS Secret Access Key: ");
+//        String secretAccessKey = scanner.nextLine();
+//
+//        System.out.print("Enter AWS Session Token: ");
+//        String sessionToken = scanner.nextLine();
         connectToAws(accessKeyId, secretAccessKey, sessionToken);
     }
 }

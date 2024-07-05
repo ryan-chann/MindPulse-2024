@@ -18,7 +18,6 @@ public class AppointmentService {
     private final TaxRateRepository taxRateRepository;
     private final TherapistAvailabilityRepository therapistAvailabilityRepository;
 
-
     public AppointmentService() {
         this.offeredServiceRepository = new OfferedServiceRepository();
         this.taxRateRepository = new TaxRateRepository();

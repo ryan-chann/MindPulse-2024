@@ -15,6 +15,4 @@ public class MindpulseApplication {
 
 		SpringApplication.run(MindpulseApplication.class, args);
 	}
-
-
 }

@@ -84,7 +84,7 @@ const TherapistProfile = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:8081/api/appointment/submit', {
+            const response = await fetch('http://ec2-108-136-160-11.ap-southeast-3.compute.amazonaws.com/api/api/appointment/submit', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -42,7 +42,7 @@ const formatTime = (time) => {
 const ConfirmationCard = ({chooseAppointmentDetails, yourInformationDetails, therapistName, therapistType, handleFileUploadStatus}) => {
     const props = {
         name: 'file',
-        action: 'http://localhost:8081/api/appointment/uploadFile',
+        action: 'http://ec2-108-136-160-11.ap-southeast-3.compute.amazonaws.com//api/api/appointment/uploadFile',
         beforeUpload: (file) => {
             const newName = `${yourInformationDetails.fullName}_${chooseAppointmentDetails.selectedDate}_${chooseAppointmentDetails.selectedTime}_payment${file.name.substring(file.name.lastIndexOf('.'))}`;
             return new File([file], newName, {type: file.type});
@@ -186,7 +186,7 @@ const ConfirmationCard = ({chooseAppointmentDetails, yourInformationDetails, the
                                 accountName="Mindpulse Enterprise"
                                 accountNumber="1234-1234-1234"
                                 bankName="Hong Leong Bank"
-                                duitNowQrImageUrl="error"
+                                duitNowQrImageUrl="https://mingjun-mindpulse.s3.ap-southeast-3.amazonaws.com/qrcode/QR_Code.png"
                             />
                             <div style={{margin: '0px 0px 10px 0px'}}>
                                 <span>Upload proof of payment (JPG, PNG & PDF only) </span>
