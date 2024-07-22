@@ -42,7 +42,7 @@ const formatTime = (time) => {
 const ConfirmationCard = ({chooseAppointmentDetails, yourInformationDetails, therapistName, therapistType, handleFileUploadStatus}) => {
     const props = {
         name: 'file',
-        action: 'http://ec2-108-136-160-11.ap-southeast-3.compute.amazonaws.com//api/api/appointment/uploadFile',
+        action: 'http://ec2-108-136-165-13.ap-southeast-3.compute.amazonaws.com/api/api/appointment/uploadFile',
         beforeUpload: (file) => {
             const newName = `${yourInformationDetails.fullName}_${chooseAppointmentDetails.selectedDate}_${chooseAppointmentDetails.selectedTime}_payment${file.name.substring(file.name.lastIndexOf('.'))}`;
             return new File([file], newName, {type: file.type});
