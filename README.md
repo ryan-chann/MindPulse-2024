@@ -6,11 +6,11 @@
 **Date:** 01 August 2024
   
 ## Technology Used  
-**Programming Language:** JavaScript & Java
-**Framework:** Spring Boot
-**Libraries:** React.js, Ant Design, Axios, AWS SDK, Lombok
-**Development Tools:** Nginx
-**Database:** AWS S3, AWS DynamoDB
+**Programming Language:** JavaScript & Java  
+**Framework:** Spring Boot  
+**Libraries:** React.js, Ant Design, Axios, AWS SDK, Lombok  
+**Development Tools:** Nginx  
+**Database:** AWS S3, AWS DynamoDB  
 **Deployment:** AWS EC2  
   
 ## Features  
