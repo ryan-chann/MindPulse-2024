@@ -2,7 +2,7 @@
 ## General Information 
 **Project type:** Prototype  
 **Project description:** A booking system for individuals seeking mental health services  
-**Owner:** Lee Ming Jun, Ryan Chan  
+**Owner:** Lee Ming Jun & Ryan Chan  
 **Date:** 01 August 2024
   
 ## Technology Used  
