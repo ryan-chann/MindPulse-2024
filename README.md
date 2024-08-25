@@ -1,13 +1,11 @@
 # MindPulse  
 ## General Information 
----
 **Project type:** Prototype  
 **Project description:** A booking system for individuals seeking mental health services  
 **Owner:** Lee Ming Jun, Ryan Chan  
 **Date:** 01 August 2024
   
 ## Technology Used  
----
 **Programming Language:** JavaScript & Java
 **Framework:** Spring Boot
 **Libraries:** React.js, Ant Design, Axios, AWS SDK, Lombok
@@ -16,7 +14,6 @@
 **Deployment:** AWS EC2  
   
 ## Features  
----
 - **Customer:**
 -- Browse list of therapist  
 -- Retrieve therapist infomation
@@ -28,7 +25,6 @@
 -- Update therapist availability
   
 ## Project Retrospective  
----
 ### What went well?  
 - The project was successfully designed, developed, tested, and deployed in 1 month.  
 - The project was completed within budget.  
@@ -50,5 +46,4 @@
 - Every written code should be documented to increase clarity  
   
 ## Video Demo  
----
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Venvnqz646s/0.jpg)](https://www.youtube.com/watch?v=Venvnqz646s)
