@@ -14,15 +14,15 @@
 **Deployment:** AWS EC2  
   
 ## Features  
-- **Customer:**
--- Browse list of therapist  
--- Retrieve therapist infomation
--- Book therapist appointment
--- Receive email notification  
-  
-- **Web Application**
--- Create therapist appointment
--- Update therapist availability
+**Customer:**  
+- Browse list of therapist  
+- Retrieve therapist infomation  
+- Book therapist appointment  
+- Receive email notification   
+
+**Web Application**  
+- Create therapist appointment  
+- Update therapist availability  
   
 ## Project Retrospective  
 ### What went well?  
