@@ -34,7 +34,8 @@
 - The author loses focus in executing software processes due to inadequate project planning.
 - Most of the resources were used to learn the technologies.  
 - The deployed application were too simple and lack of functionalities.
-- The lifespan of the credentials to AWS Single Sign On (SSO) is 12 hours at maximum, which means every 12 hours the credentials needs to be reset. This jeopardized the availability of the application.
+- The lifespan of the credentials to AWS Single Sign On (SSO) is 12 hours at maximum, which means every 12 hours the credentials needs to be reset. This jeopardized the availability of the application.  
+- Microservices were not implemented successfully due to lack of knowledge in Dockers and Kubernates technologies.
   
 ### What can be improved?
 - Instead of using 2 different programming languages to build the frontend and backend, a single language such as Javascript can be solely used for full-stack development due to limited resources.
@@ -43,7 +44,8 @@
 - A script can be added into the application to automate the process of resetting the AWS SSO credentials.
 - Project planning should include the findings of tools required to build the application and training for it.
 - The executed processes must be documented to increase maintainability, code quality can be improved.
-- Every written code should be documented to increase clarity  
+- Every written code should be documented to increase clarity
+- Application can be improved with horizontal scaling ability by leveraging the potential of Spring Boot framework
   
 ## Video Demo  
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Venvnqz646s/0.jpg)](https://www.youtube.com/watch?v=Venvnqz646s)
