@@ -28,7 +28,8 @@
 ### What went well?  
 - The project was successfully designed, developed, tested, and deployed in 1 month.  
 - The project was completed within budget.  
-- The author have learned and proved the concepts of cloud computing integration.  
+- The author have learned and proved the concepts of cloud computing integration.
+- Successfully implemented single-table data model design with DynamoDB  
   
 ### What didn't went well?
 - The author loses focus in executing software processes due to inadequate project planning.
