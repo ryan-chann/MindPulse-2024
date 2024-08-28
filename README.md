@@ -37,6 +37,8 @@
 - The deployed application were too simple and lack of functionalities.
 - The lifespan of the credentials to AWS Single Sign On (SSO) is 12 hours at maximum, which means every 12 hours the credentials needs to be reset. This jeopardized the availability of the application.  
 - Microservices were not implemented successfully due to lack of knowledge in Dockers and Kubernates technologies.
+- When using Spring Boot framework, properties files cannot be read due to unknown errors
+- JUnit tests were not able to execute due to unknown errors
   
 ### What can be improved?
 - Instead of using 2 different programming languages to build the frontend and backend, a single language such as Javascript can be solely used for full-stack development due to limited resources.
