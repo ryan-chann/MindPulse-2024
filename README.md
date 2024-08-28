@@ -9,7 +9,7 @@
 **Programming Language:** JavaScript & Java  
 **Framework:** Spring Boot  
 **Libraries:** React.js, Ant Design, Axios, AWS SDK, Lombok  
-**Tools:** Nginx, Git    
+**Tools:** Nginx, Git, ChatGPT      
 **Database:** AWS S3, AWS DynamoDB  
 **Deployment:** AWS EC2  
   
